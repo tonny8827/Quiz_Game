@@ -5,9 +5,13 @@ Este jogo está sendo projetado como um trabalho em grupo para o primeiro perío
 Os participantes do grupo são:
 
 Gabriel Correia (gothmate)
+
 Pablo Narciso
+
 Antonio (Tonny)
+
 Eduardo Gonçalves
+
 Ricardo Garcêz
 
 O projeto foi todo feito em pythom, com codificação básica.
