@@ -149,10 +149,13 @@ for i in vogais:
             'resposta_certa': 'c',
         }
     }
+    
     vidas = 3
     pontos = 0
     respostas_certas = 0
+    
     while True:
+        # Loop de perguntas
         for pk, pv in perguntas.items():
             if vidas == 0:
                 print('\033[31mSinto muito. Você perdeu! Tente novamente.\033[m')
@@ -160,7 +163,8 @@ for i in vogais:
             print(f'{pk}:\n{pv["pergunta"]}')
             print()
             print('Escolha uma resposta:')
-
+            
+            # Loop de respostas
             for rk, rv in pv['respostas'].items():
                 print(f'[{rk}]: {rv}')
 
