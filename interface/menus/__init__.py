@@ -25,6 +25,56 @@ def logo():
     sleep(4)
     
 
+def arquivo_existe(nome):
+    try:
+        a = open(nome, 'rt')
+        a.close()
+    except FileNotFoundError:
+        return False
+    else:
+        return True
+
+
+def criar_arquivo(nome):
+    try:
+        a = open(nome, 'wt+')
+        a.close()
+    except:
+        print('Houve um ERRO na criação do arquivo')
+    else:
+        print('Arquivo clientes.txt criado com sucesso.')
+
+
+def ler_arquivo(nome):
+    try:
+        a = open(nome, 'rt')
+    except:
+        print('ERRO ao ler arquivo.')
+    else:
+        cabecalho('Cadastro de Pessoas')
+        for linha in a:
+            dado = linha.split(';')
+            dado[1] = dado[1].replace('\n', '')
+            print(f'{dado[0]:<40}{dado[1]:>3}')
+        sleep(3)
+    finally:
+        a.close()
+
+
+def criar_relatorio(arq, nome, pontuacao):
+    try:
+        a = open(arq, 'at')
+    except:
+        print('Houve um ERRO ao abrir o arquivo.')
+    else:
+        try:
+            a.write(f'{nome};{pontuacao}\n')
+        except:
+            print('Houve um ERRO ao escrever no arquivo.')
+        else:
+            print(f'Novo registro de {nome} adicionado.')
+
+
 def linha(tam=60):
     print('~' * tam)
 
@@ -39,7 +89,7 @@ def menuOpc(msg):
     linha()
     print(f'\033[33m{msg}\033[m'.center(60))
     linha()
-    opcoes = ['Som', 'Créditos', 'Voltar']
+    opcoes = ['Som (Falta fazer ou redefinir)', 'Créditos', 'Voltar']
     c = 1
     for i in opcoes:
         print(f'{c} - {i}')
@@ -59,10 +109,33 @@ def menuPrinc(msg):
     linha()
 
 
+def menuFinal(msg):
+    linha()
+    print(f'\033[33m{msg}\033[m'.center(60))
+    linha()
+    opcoes = ['Tentar Novamente', 'Mostrar relatório', 'Sair']
+    c=1
+    for i in opcoes:
+        print(f'{c} - {i}')
+        c +=1
+    linha()
+    sleep(1)
+    opc = int(input('Sua opção: '))
+    linha()
+    if opc == 1:
+        pergunta()
+    elif opc == 2:
+        ler_arquivo(relatorio)
+        linha()
+        # programar relatório
+
+
+
 # perguntas
 def pergunta():
-    perguntas = {
-        'Pergunta1': {
+    global relatorio
+    perguntas_educ = {
+        'Pergunta 1': {
             'pergunta': 'Qual a opção correta para declarar uma lista?',
             'respostas': {
                 'a': 'lista = () e list:[]',
@@ -72,7 +145,7 @@ def pergunta():
             },
             'resposta_certa': 'b',
         },
-        'Pergunta2': {
+        'Pergunta 2': {
             'pergunta': 'Qual a diferença de uma Tupla pra uma Lista?',
             'respostas': {
                 'a': 'Tuplas não podem conter listas',
@@ -82,7 +155,7 @@ def pergunta():
             },
             'resposta_certa': 'c',
         },
-        'Pergunta3': {
+        'Pergunta 3': {
             'pergunta': 'Qual destas palavras é uma palavra reservada em Python?',
             'respostas': {
                 'a': 'copiar',
@@ -92,7 +165,7 @@ def pergunta():
             },
             'resposta_certa': 'd',
         },
-        'Pergunta4': {
+        'Pergunta 4': {
             'pergunta': 'Qual é a forma de dizer "tchau" ao Python no modo interativo?',
             'respostas': {
                 'a': 'quit()',
@@ -102,7 +175,7 @@ def pergunta():
             },
             'resposta_certa': 'a',
         },
-        'Pergunta5': {
+        'Pergunta 5': {
             'pergunta': 'O quê é impresso na tela pelo programa abaixo?\n\nx = 5\nx = x + 10\nprint(x)',
             'respostas': {
                 'a': '5',
@@ -112,7 +185,7 @@ def pergunta():
             },
             'resposta_certa': 'd',
         },
-        'Pergunta6': {
+        'Pergunta 6': {
             'pergunta': '''No programa abaixo, o que será printado na tela?
     
 lista = [2, 8, 4, 7]
@@ -128,7 +201,7 @@ print(lista)''',
             },
             'resposta_certa': 'b',
         },
-        'Pergunta7': {
+        'Pergunta 7': {
             'pergunta': '''O que é printado na tela?
  
 vogais = ["a", "e", "i", "o", "u"]
@@ -143,7 +216,7 @@ for i in vogais:
             },
             'resposta_certa': 'c',
         },
-        'Pergunta8': {
+        'Pergunta 8': {
             'pergunta': 'Alguma pergunta?',
             'respostas': {
                 'a': 'copy',
@@ -153,7 +226,7 @@ for i in vogais:
             },
             'resposta_certa': 'c',
         },
-        'Pergunta9': {
+        'Pergunta 9': {
             'pergunta': 'Outra pergunta?',
             'respostas': {
                 'a': 'copy',
@@ -163,7 +236,7 @@ for i in vogais:
             },
             'resposta_certa': 'c',
         },
-        'Pergunta10': {
+        'Pergunta 10': {
             'pergunta': 'Última pergunta?',
             'respostas': {
                 'a': 'copy',
@@ -174,16 +247,17 @@ for i in vogais:
             'resposta_certa': 'c',
         }
     }
-    
+
     vidas = 3
     pontos = 0
     respostas_certas = 0
-    
+
     while True:
+        relatorio = 'relatorio.txt'
         # Loop de perguntas
-        for pk, pv in perguntas.items():
+        for pk, pv in perguntas_educ.items():
             if vidas == 0:
-                print('\033[31mSinto muito. Você perdeu! Tente novamente.\033[m')
+                print('\033[31mSinto muito. Você perdeu!\033[m')
                 break
             print(f'{pk}:\n{pv["pergunta"]}')
             print()
@@ -217,5 +291,12 @@ for i in vogais:
         # Faz a contagem final de pontos
         if respostas_certas == 10:
             print('\033[33mVocê é sensacional! Acertou Todas!!!\033[m'.center(60))
-        print(f'\033[34mParabéns! Você venceu. Sua Pontuação foi de {pontos} Pontos.\033[m'.center(60))
+            print(f'\033[34mParabéns! Você venceu. \033[m'.center(60))
+        linha()
+        print(f'\033[34mSua Pontuação foi de {pontos} Pontos.\033[m'.center(60))
+        linha()
+        nome = input('Diga seu nome: ')
+        criar_relatorio(relatorio, nome, pontos)
+        menuFinal('Selecione uma opção')
         break
+
