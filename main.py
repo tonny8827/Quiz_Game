@@ -8,6 +8,10 @@ pysolvers = ['\033[34mGabriel Correia (gothmate)',
              'Ricardo Garcêz\033[m',
              ]
 
+relatorio = 'relatorio.txt'
+if not arquivo_existe(relatorio):
+    criar_arquivo(relatorio)
+
 logo()
 cabecalho('QUIZ PySolvers 2.0')
 print('''\033[33mBem vindo ao Quiz Game.
