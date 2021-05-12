@@ -42,7 +42,7 @@ def criar_arquivo(nome):
     except:
         print('Houve um ERRO na criação do arquivo')
     else:
-        print('Arquivo clientes.txt criado com sucesso.')
+        print(f'Arquivo {nome} criado com sucesso.')
 
 
 def ler_arquivo(nome):
@@ -51,7 +51,7 @@ def ler_arquivo(nome):
     except:
         print('ERRO ao ler arquivo.')
     else:
-        cabecalho('Cadastro de Pessoas')
+        cabecalho('Pontuações dos Jogadores!')
         for linha in a:
             dado = linha.split(';')
             dado[1] = dado[1].replace('\n', '')
@@ -89,7 +89,7 @@ def menuOpc(msg):
     linha()
     print(f'\033[33m{msg}\033[m'.center(60))
     linha()
-    opcoes = ['Som (Falta fazer ou redefinir)', 'Créditos', 'Voltar']
+    opcoes = ['Som', 'Créditos', 'Voltar']
     c = 1
     for i in opcoes:
         print(f'{c} - {i}')
@@ -101,25 +101,37 @@ def menuPrinc(msg):
     linha()
     print(f'\033[33m{msg}\033[m'.center(60))
     linha()
-    opcoes = ['Começar', 'Opções', 'Sair']
+    opcoes = ['Jogar', 'Opções', 'Records', 'Sair']
     c=1
     for i in opcoes:
         print(f'{c} - {i}')
         c +=1
     linha()
 
+
+def menuSom(msg):
+    print('Menu de som')
+    linha()
+    print(f'\033[33m{msg}\033[m'.center(60))
+    linha()
+    opcoes = ['Mudo', 'Volume', 'Sair']
+    c = 1
+    for i in opcoes:
+        print(f'{c} - {i}')
+        c += 1
+    linha()
 
 def menuFinal(msg):
     linha()
     print(f'\033[33m{msg}\033[m'.center(60))
     linha()
-    opcoes = ['Tentar Novamente', 'Mostrar relatório', 'Sair']
+    opcoes = ['Tentar Novamente', 'Records', 'Sair']
     c=1
     for i in opcoes:
         print(f'{c} - {i}')
         c +=1
     linha()
-    sleep(1)
+    sleep(0.5)
     opc = int(input('Sua opção: '))
     linha()
     if opc == 1:
@@ -127,7 +139,6 @@ def menuFinal(msg):
     elif opc == 2:
         ler_arquivo(relatorio)
         linha()
-        # programar relatório
 
 
 
@@ -135,7 +146,7 @@ def menuFinal(msg):
 def pergunta():
     global relatorio
     perguntas_educ = {
-        'Pergunta 1': {
+        '\033[33mPergunta 1\033[m': {
             'pergunta': 'Qual a opção correta para declarar uma lista?',
             'respostas': {
                 'a': 'lista = () e list:[]',
@@ -145,7 +156,7 @@ def pergunta():
             },
             'resposta_certa': 'b',
         },
-        'Pergunta 2': {
+        '\033[33mPergunta 2\033[m': {
             'pergunta': 'Qual a diferença de uma Tupla pra uma Lista?',
             'respostas': {
                 'a': 'Tuplas não podem conter listas',
@@ -155,7 +166,7 @@ def pergunta():
             },
             'resposta_certa': 'c',
         },
-        'Pergunta 3': {
+        '\033[33mPergunta 3\033[m': {
             'pergunta': 'Qual destas palavras é uma palavra reservada em Python?',
             'respostas': {
                 'a': 'copiar',
@@ -165,7 +176,7 @@ def pergunta():
             },
             'resposta_certa': 'd',
         },
-        'Pergunta 4': {
+        '\033[33mPergunta 4\033[m': {
             'pergunta': 'Qual é a forma de dizer "tchau" ao Python no modo interativo?',
             'respostas': {
                 'a': 'quit()',
@@ -175,7 +186,7 @@ def pergunta():
             },
             'resposta_certa': 'a',
         },
-        'Pergunta 5': {
+        '\033[33mPergunta 5\033[m': {
             'pergunta': 'O quê é impresso na tela pelo programa abaixo?\n\nx = 5\nx = x + 10\nprint(x)',
             'respostas': {
                 'a': '5',
@@ -185,7 +196,7 @@ def pergunta():
             },
             'resposta_certa': 'd',
         },
-        'Pergunta 6': {
+        '\033[33mPergunta 6\033[m': {
             'pergunta': '''No programa abaixo, o que será printado na tela?
     
 lista = [2, 8, 4, 7]
@@ -201,7 +212,7 @@ print(lista)''',
             },
             'resposta_certa': 'b',
         },
-        'Pergunta 7': {
+        '\033[33mPergunta 7\033[m': {
             'pergunta': '''O que é printado na tela?
  
 vogais = ["a", "e", "i", "o", "u"]
@@ -216,7 +227,7 @@ for i in vogais:
             },
             'resposta_certa': 'c',
         },
-        'Pergunta 8': {
+        '\033[33mPergunta 8\033[m': {
             'pergunta': 'Alguma pergunta?',
             'respostas': {
                 'a': 'copy',
@@ -226,7 +237,7 @@ for i in vogais:
             },
             'resposta_certa': 'c',
         },
-        'Pergunta 9': {
+        '\033[33mPergunta 9\033[m': {
             'pergunta': 'Outra pergunta?',
             'respostas': {
                 'a': 'copy',
@@ -236,7 +247,7 @@ for i in vogais:
             },
             'resposta_certa': 'c',
         },
-        'Pergunta 10': {
+        '\033[33mPergunta 10\033[m': {
             'pergunta': 'Última pergunta?',
             'respostas': {
                 'a': 'copy',
@@ -279,7 +290,7 @@ for i in vogais:
             if resposta_usuario == pv['resposta_certa']:
                 pontos += 100
                 respostas_certas += 1
-                print('Você acertou!')
+                print('\033[34mVocê acertou!\033[m')
                 print(f'\033[33mVidas: {vidas}\t\t\t\t\t\tPontos: {pontos}\033[m')
                 print()
             else:
