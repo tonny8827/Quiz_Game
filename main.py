@@ -1,10 +1,10 @@
-from time import sleep
+from time import sleep 
 from interface.menus import logo, arquivo_existe, criar_arquivo, cabecalho, menuOpc, \
     linha, ler_arquivo, menuSom, menuPrinc, pergunta
 import pygame
 from pygame import mixer
 
-
+#iniciando pygame
 pygame.init()
 mixer.music.load('game.mp3')
 mixer.music.play(-1)
