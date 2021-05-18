@@ -55,7 +55,7 @@ def ler_arquivo(nome):
         for linha in a:
             dado = linha.split(';')
             dado[1] = dado[1].replace('\n', '')
-            print(f'{dado[0]:<40}{dado[1]:>3}')
+            print(f'{dado[0]:<50}{dado[1]:>8}')
         sleep(3)
     finally:
         a.close()
@@ -152,7 +152,7 @@ def pergunta():
                 'a': 'lista = () e list:[]',
                 'b': 'lista = [] e lista = list()',
                 'c': 'list = lista() e lista: lista{}',
-                'd': 'Nenhuma das acima',
+                'd': 'Nenhuma das questões acima',
             },
             'resposta_certa': 'b',
         },
@@ -228,32 +228,32 @@ for i in vogais:
             'resposta_certa': 'c',
         },
         '\033[33mPergunta 8\033[m': {
-            'pergunta': 'Alguma pergunta?',
+            'pergunta': 'Para que serve a modularização?',
             'respostas': {
-                'a': 'copy',
-                'b': 'names',
-                'c': 'value',
-                'd': 'if',
+                'a': 'Organizar as funções, para que o programa fique mais legível',
+                'b': 'Deixar o código bonitinho',
+                'c': 'Diminuir o comondo',
+                'd': 'Serve para habilitar o comando def',
             },
-            'resposta_certa': 'c',
+            'resposta_certa': 'a',
         },
         '\033[33mPergunta 9\033[m': {
-            'pergunta': 'Outra pergunta?',
+            'pergunta': 'Qual deve ser a preferência para utilizar os laços For ou While?',
             'respostas': {
-                'a': 'copy',
-                'b': 'names',
-                'c': 'value',
-                'd': 'if',
+                'a': 'While é utilizado quando há um limite pre-definido',
+                'b': 'O laço For é mais rapido que o While, por isso é preferivel usar o For',
+                'c': 'For é utilizado quando há um limite pre-definido',
+                'd': 'Nenhuma das questões acima',
             },
             'resposta_certa': 'c',
         },
         '\033[33mPergunta 10\033[m': {
-            'pergunta': 'Última pergunta?',
+            'pergunta': 'Qual o comando deve ser utilizado para importar a biblioteca math?',
             'respostas': {
-                'a': 'copy',
-                'b': 'names',
-                'c': 'value',
-                'd': 'if',
+                'a': 'a=(math.sqtr)',
+                'b': 'from math import arithmetic',
+                'c': 'import math',
+                'd': 'from math import sqtr',
             },
             'resposta_certa': 'c',
         }
@@ -288,13 +288,17 @@ for i in vogais:
 
             # Verifica se a resposta está correta
             if resposta_usuario == pv['resposta_certa']:
-                pontos += 100
-                respostas_certas += 1
+                if pontos == 0:
+                    pontos += 100
+                elif pontos > 0:
+                    pontos += 100
+                    pontos = (pontos + (pontos * 0.1))
                 print('\033[34mVocê acertou!\033[m')
                 print(f'\033[33mVidas: {vidas}\t\t\t\t\t\tPontos: {pontos}\033[m')
                 print()
             else:
                 vidas -= 1
+                pontos = (pontos - (pontos * 0.1))
                 print('\033[31mVocê errou. Perdeu uma vida.\033[m')
                 print(f'\033[33mVidas: {vidas}\t\t\t\t\t\tPontos: {pontos}\033[m')
                 print()
